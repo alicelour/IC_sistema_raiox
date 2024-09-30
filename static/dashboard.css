@@ -30,3 +30,16 @@ body {
 .direita-painel {
     background-color: #f8f9fa; /* Fundo claro para a coluna direita */
 }
+
+ul {
+    list-style-type: none; /* Remove marcadores padrão da lista */
+    padding: 0;
+}
+
+li {
+    background-color: #f9f9f9;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}

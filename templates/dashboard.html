@@ -11,11 +11,21 @@
     <div class="container">
             <div class="esquerda-painel">
                 <h2>Esquerda</h2>
-                <p>Conteúdo da metade esquerda da tela.</p>
+                <p>Conteúdo da metade esquerda da tela</p>
             </div>
             <div class="direita-painel">
                 <h2>Direita</h2>
-                <p>Conteúdo da metade direita da tela.</p>
+                <!-- Verifica se a lista contém itens -->
+                {% if items %}
+                    <ul>
+                        <!-- Loop através da lista 'items' -->
+                        {% for item in items %}
+                            <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>Sem itens para exibir!</p>
+                {% endif %}
             </div>
         </div>    
 </body>

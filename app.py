@@ -13,6 +13,7 @@ def get_db_connection(): #está definindo uma função que não recebe parâmetr
     return conn
 
 # Rota para a página de login
+@app.route()
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':  #Se for uma requisição do tipo POST, significa que o usuário enviou o formulário de login e os dados precisam ser processados.
@@ -38,9 +39,16 @@ def login():
 @app.route('/dashboard')
 def dashboard():
     if 'user_id' in session:
-        return render_template('dashboard.html')
+        # Lista dinâmica de itens (pode vir do banco de dados, por exemplo)
+        items = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5','Item 6', 'Item 7'] #colocar um banco de dados pra ficar dinamico
+
+        # Renderiza o template 
+        return render_template('dashboard.html', items=items)
     else:
         return redirect(url_for('login'))
+    
+    
+
 
 if __name__ == '__main__':
     app.run(debug=True)
