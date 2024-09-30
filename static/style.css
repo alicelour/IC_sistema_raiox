@@ -1,7 +1,7 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #e9ecef; /* Fundo claro */
+    background-color: #b8b8b9; /* Fundo claro */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,66 +9,54 @@ body {
     margin: 0;
 }
 
-h1 {
-    color: #333;
-    margin-bottom: 20px; /* Espaço abaixo do título */
+form {
+    background-color: white; /* Fundo do formulário */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 350px; /* Largura do formulário */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Alinhamento centralizado do conteúdo */
 }
 
-form {
-    background-color: #ffffff; /* Fundo do formulário */
-    padding: 30px;
-    border-radius: 10px; /* Bordas mais arredondadas */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra mais suave */
-    width: 300px; /* Largura fixa do formulário */
+h1 {
+    color: #333;
+    margin-bottom: 20px; /* Espaçamento abaixo do título */
+    font-size: 24px;
+    text-align: center;
 }
 
 label {
     display: block;
     margin-bottom: 8px;
     color: #555;
-    font-weight: bold; /* Texto em negrito */
+    font-weight: bold;
+    align-self: flex-start; /* Alinha o label à esquerda */
 }
 
 input[type="text"],
 input[type="password"] {
     width: 100%;
-    padding: 12px; /* Mais espaço interno */
-    margin-bottom: 15px; /* Espaço entre os campos */
+    padding: 12px;
+    margin-bottom: 15px;
     border: 1px solid #ccc;
-    border-radius: 5px; /* Bordas arredondadas */
+    border-radius: 5px;
     font-size: 16px;
-    transition: border-color 0.3s; /* Transição suave para a borda */
-}
-
-input[type="text"]:focus,
-input[type="password"]:focus {
-    border-color: #5cb85c; /* Cor da borda ao focar */
-    outline: none; /* Remove o coo contorno padrão */
 }
 
 button {
-    background-color: #5cb85c; /* Cor de fundo do botão */
+    background-color: #7caf7c;
     color: white;
     border: none;
-    padding: 12px 15px; /* Mais espaço interno no botão */
-    border-radius: 5px; /* Bordas arredondadas */
+    padding: 12px 15px;
+    border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    width: 100%; /* Botão ocupa a largura total */
-    transition: background-color 0.3s; /* Transição suave para a cor de fundo */
+    width: 100%;
+    margin-top: 10px;
 }
 
 button:hover {
-    background-color: #4cae4c; /* Cor ao passar o mouse */
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-    margin-top: 20px;
-    color: #d9534f; /* Cor das mensagens de erro */
-}
-
-li {
-    margin-bottom: 10px;
+    background-color: #6eae6e;
 }

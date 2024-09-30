@@ -38,7 +38,7 @@ def login():
 @app.route('/dashboard')
 def dashboard():
     if 'user_id' in session:
-        return 'Bem-vindo ao dashboard!'
+        return render_template('dashboard.html')
     else:
         return redirect(url_for('login'))
 
