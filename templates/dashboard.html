@@ -10,22 +10,25 @@
 <body>
     <div class="container">
             <div class="esquerda-painel">
-                <h2>Esquerda</h2>
-                <p>Conteúdo da metade esquerda da tela</p>
+                <h1>Prioridade</h1>
+                <p>Imagem com maior prioridade + informações</p>
             </div>
             <div class="direita-painel">
-                <h2>Direita</h2>
+                <h2>Lista de prioridades</h2>
                 <!-- Verifica se a lista contém itens -->
                 {% if items %}
-                    <ul>
-                        <!-- Loop através da lista 'items' -->
-                        {% for item in items %}
-                            <li>{{ item }}</li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <p>Sem itens para exibir!</p>
-                {% endif %}
+                <ul>
+                    <!-- Loop através da lista 'items' -->
+                    {% for item in items %}
+                        <li>
+                            <!-- Envolve cada item em um link -->
+                            <a href="{{ url_for('item_detail', item_name=item) }}">{{ item }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Sem itens para exibir!</p>
+            {% endif %}
             </div>
         </div>    
 </body>

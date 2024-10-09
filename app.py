@@ -13,7 +13,7 @@ def get_db_connection(): #está definindo uma função que não recebe parâmetr
     return conn
 
 # Rota para a página de login
-@app.route()
+@app.route('/')
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':  #Se for uma requisição do tipo POST, significa que o usuário enviou o formulário de login e os dados precisam ser processados.
@@ -46,7 +46,12 @@ def dashboard():
         return render_template('dashboard.html', items=items)
     else:
         return redirect(url_for('login'))
+
+# Rota para o detalhe de cada item
+@app.route('/item/<item_name>')
+def item_detail(item_name):
     
+    return render_template('detalhe.html')
     
 
 
