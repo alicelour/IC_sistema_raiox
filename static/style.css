@@ -9,6 +9,25 @@ body {
     margin: 0;
 }
 
+.logo-container{
+    position: absolute; /* Posiciona a div em relação ao cabeçalho */
+    top: 0; /* Alinha ao topo do cabeçalho */
+    left: 0; /* Alinha à esquerda do cabeçalho */
+    width: 100%; /* A div ocupará 100% da largura do cabeçalho */
+    height: 15%;
+    background-color: white; /* Fundo branco */
+}
+
+img {
+    position: absolute; /* Posiciona a imagem em relação ao contêiner mais próximo */
+    top: 0; /* Alinha ao topo */
+    left: 0; /* Alinha à esquerda */
+    max-width: 200px; /* Define uma largura máxima */
+    max-height: 200px; /* Define uma altura máxima */
+    width: auto; /* Mantém a proporção da imagem */
+    height: auto; /* Mantém a proporção da imagem */
+}
+
 form {
     background-color: white; /* Fundo do formulário */
     padding: 30px;
