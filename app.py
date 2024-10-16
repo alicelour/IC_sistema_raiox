@@ -7,7 +7,7 @@ app.secret_key = secrets.token_hex(16)
 
 # Função para conectar ao banco de dados
 
-def get_db_connection(): #está definindo uma função que não recebe parâmetros.responsável por criar e retornar uma conexão com o banco de dados SQLite.
+def get_db_connection(): #responsável por criar e retornar uma conexão com o banco de dados SQLite.
     conn = sqlite3.connect('users.db')   #abrir um arquivo de banco de dados chamado users.db
     conn.row_factory = sqlite3.Row
     return conn
@@ -47,11 +47,26 @@ def dashboard():
     else:
         return redirect(url_for('login'))
 
-# Rota para o detalhe de cada item
 @app.route('/item/<item_name>')
 def item_detail(item_name):
-    
-    return render_template('detalhe.html')
+    # Conecta ao banco de dados
+    conn = get_db_connection()
+
+    # Busca o item pelo nome
+    item = conn.execute('SELECT * FROM items WHERE name = ?', (item_name,)).fetchone()
+
+    # Fecha a conexão com o banco
+    conn.close()
+
+    # Verifica se o item foi encontrado
+    if item:
+        # Renderiza o template 'detalhe.html', passando os detalhes do item
+        return render_template('detalhe.html', item=item)
+    else:
+        # Se o item não for encontrado, exibe uma mensagem de erro e redireciona
+        flash('Item não encontrado!')
+        return redirect(url_for('dashboard'))
+
     
 
 

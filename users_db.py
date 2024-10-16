@@ -12,5 +12,25 @@ c.execute('''
 ''')
 
 
+
+def create_items_table():
+    # Conecta ao banco de dados (ou cria se não existir)
+    conn = sqlite3.connect('users.db')
+    cursor = conn.cursor()
+    
+    # Cria a tabela de itens, se ela ainda não existir
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS items (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            description TEXT,
+            price REAL
+        )
+    ''')
+
 conn.commit()
 conn.close()
+
+if __name__ == '__main__':
+    create_items_table()
+    print("Tabela 'items' criada com sucesso!")
