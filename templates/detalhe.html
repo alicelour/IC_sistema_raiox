@@ -6,11 +6,17 @@
     <title>Detalhe</title>
 </head>
 <body>
-    <h1>Detalhes do Paciente: {{ item['name'] }}</h1>
-    <p>Descrição: {{ item['description'] }}</p>
-    <p>Preço: R$ {{ item['price'] }}</p>
-
-
+ <h1>Detalhes do Paciente</h1>
+    {% if paciente %}
+        <p>ID: {{ paciente[0] }}</p>
+        <p>Nome: {{ paciente[1] }}</p>
+        <p>Diagnóstico: {{ paciente[2] }}</p>
+        <p>Idade: {{ paciente[3] }}</p>
+        <p>Sexo: {{ paciente[4] }}</p>
+    {% else %}
+        <p>Paciente não encontrado.</p>
+    {% endif %}
+    <a href="{{ url_for('dashboard') }}">Voltar</a>
     
 </body>
 </html>

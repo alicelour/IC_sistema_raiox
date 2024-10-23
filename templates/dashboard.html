@@ -19,20 +19,17 @@
             </div>
             <div class="direita-painel">
                 <h2>Lista de prioridades</h2>
-                <!-- Verifica se a lista contém itens -->
-                {% if items %}
                 <ul>
-                    <!-- Loop através da lista 'items' -->
-                    {% for item in items %}
-                        <li>
-                            <!-- Envolve cada item em um link -->
-                            <a href="{{ url_for('item_detail', item_name=item) }}">{{ item }}</a>
-                        </li>
-                    {% endfor %}
+                    {% if pacientes %}
+                        {% for paciente in pacientes %}
+                            <li>
+                                <a href="{{ url_for('detalhe', id=paciente[0]) }}">{{ paciente[2] }}</a> - {{ paciente[1] }} <!-- Exibe o nome -->
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                        <p>Sem itens para exibir!</p>
+                    {% endif %}
                 </ul>
-            {% else %}
-                <p>Sem itens para exibir!</p>
-            {% endif %}
             </div>
         </div>    
 </body>
