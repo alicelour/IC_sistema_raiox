@@ -1,4 +1,5 @@
 def predict():
+    import sqlite3
     import numpy as np
     from tkinter import Tk
     from tkinter.filedialog import askopenfilename
@@ -10,6 +11,7 @@ def predict():
     from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
     from tensorflow.keras.regularizers import l2
     import tensorflow as tf
+    import os
 
     Tk().withdraw()
     file = askopenfilename()
@@ -21,7 +23,9 @@ def predict():
         image_2d = ds.pixel_array.astype(float)
         image_2d_scaled = (np.maximum(image_2d, 0) / image_2d.max()) * 255.0
         image_2d_scaled = np.uint8(image_2d_scaled)
-        png_file_path = f'{file.rstrip(".dcm")}.png'
+        png_file_path = os.path.join('static/uploads', f'{os.path.basename(file).rstrip(".dcm")}.png')
+        imageio.imwrite(png_file_path, image_2d_scaled)
+
         try:
             imageio.imwrite(png_file_path, image_2d_scaled)
             print(f'Successfully saved PNG to {png_file_path}')
@@ -57,7 +61,7 @@ def predict():
         ])
 
         # Carregar o modelo sem a configuração de perda original
-        classificador.load_weights(r"C:\Users\alice\Downloads\CNN_RaioX_COVID.weights.h5")
+        classificador.load_weights(r"C:\Users\alice\Downloads\best.weights.h5")
         
         # Recompilar o modelo com uma função de perda válida
         classificador.compile(optimizer='adam', loss=tf.keras.losses.BinaryCrossentropy(),
@@ -69,7 +73,25 @@ def predict():
     y_teste = classificador.predict(np.expand_dims(image, axis=0))  # Expandir a dimensão para o batch
     y_pred_binary = (y_teste > 0.5).astype(int).flatten()
 
-    # Exibir a previsão
+    # Salvar no banco de dados
+    paciente_id = 1 
+    nome_paciente = "x"
+    idade = 0
+    sexo = "x"
+    diagnostico = "COM COVID" if y_pred_binary == 1 else "SEM COVID"
+
+    conexao = sqlite3.connect('pacientes.db')
+    cursor = conexao.cursor()
+    cursor.execute('''INSERT INTO pacientes (id, nome, diagnostico, idade, sexo, link)
+                      VALUES (?, ?, ?, ?, ?, ?)''', 
+                   (paciente_id, nome_paciente, diagnostico, idade, sexo, png_file_path))
+    conexao.commit()
+    conexao.close()
+
+    print(f"Dados salvos no banco de dados para o paciente {nome_paciente}.")
+    return y_pred_binary
+
+    '''# Exibir a previsão
     redondo = np.round(y_teste, 2)
     print(f"Predição arredondada: {redondo}")
     print(f"Classificação binária: {y_pred_binary}")
@@ -81,6 +103,6 @@ def predict():
     # Salvar os resultados em um arquivo CSV
     output_df.to_csv("submission.csv", index=False)
 
-    return y_pred_binary
+    return y_pred_binary'''
 
 predict()
