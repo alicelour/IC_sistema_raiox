@@ -61,7 +61,7 @@ def predict():
         ])
 
         # Carregar o modelo sem a configuração de perda original
-        classificador.load_weights(r"C:\Users\GAIn109\Downloads\CNN_RaioX_COVID.weights (1).h5")
+        classificador.load_weights(r"C:\Users\GAIn109\Downloads\CNN_RaioX_COVID.weights.h5")
         
         # Recompilar o modelo com uma função de perda válida
         classificador.compile(optimizer='adam', loss=tf.keras.losses.BinaryCrossentropy(),
@@ -74,9 +74,9 @@ def predict():
     y_pred_binary = (y_teste > 0.5).astype(int).flatten()
 
     # Salvar no banco de dados
-    paciente_id = 1
-    nome_paciente = "cccc"
-    idade = 24
+    paciente_id = 2
+    nome_paciente = "segundo"
+    idade = 19
     sexo = "fem"
     diagnostico = "COM COVID" if y_pred_binary == 1 else "SEM COVID"
 
