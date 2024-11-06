@@ -1,4 +1,6 @@
 def predict():
+
+    
     import sqlite3
     import numpy as np
     from tkinter import Tk
@@ -12,6 +14,7 @@ def predict():
     from tensorflow.keras.regularizers import l2
     import tensorflow as tf
     import os
+
 
     Tk().withdraw()
     file = askopenfilename()
@@ -40,7 +43,6 @@ def predict():
     image = cv2.resize(image, (100, 100))
 
     # Exibir imagem
-    cv2.imshow('DICOM to PNG', image)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
@@ -76,9 +78,9 @@ def predict():
 
     # Salvar no banco de dados
     paciente_id = ds.PatientID
-    nome_paciente = "seg"
+    nome_paciente = " "
     idade = ds.PatientAge
-    sexo = "fem"
+    sexo = ds.PatientSex
     diagnostico = "COM COVID" if y_pred_binary == 1 else "SEM COVID"
 
     conexao = sqlite3.connect('pacientes.db')
@@ -91,19 +93,5 @@ def predict():
 
     print(f"Dados salvos no banco de dados para o paciente {nome_paciente}.")
     return y_pred_binary
-
-    '''# Exibir a previsão
-    redondo = np.round(y_teste, 2)
-    print(f"Predição arredondada: {redondo}")
-    print(f"Classificação binária: {y_pred_binary}")
-
-    # Criar o DataFrame com os resultados
-    output_df = pd.DataFrame({'id': 1, 'classe': y_pred_binary})
-    print(output_df.head())
-
-    # Salvar os resultados em um arquivo CSV
-    output_df.to_csv("submission.csv", index=False)
-
-    return y_pred_binary'''
 
 predict()
