@@ -20,6 +20,7 @@ def predict():
     # Função para converter DICOM para PNG
     def convert_to_png(file):
         ds = pydicom.dcmread(file)
+        print(ds)
         image_2d = ds.pixel_array.astype(float)
         image_2d_scaled = (np.maximum(image_2d, 0) / image_2d.max()) * 255.0
         image_2d_scaled = np.uint8(image_2d_scaled)
@@ -61,7 +62,7 @@ def predict():
         ])
 
         # Carregar o modelo sem a configuração de perda original
-        classificador.load_weights(r"C:\Users\GAIn109\Downloads\CNN_RaioX_COVID.weights.h5")
+        classificador.load_weights(r"C:\Users\alice\Downloads\CNN_RaioX_COVID.weights.h5")
         
         # Recompilar o modelo com uma função de perda válida
         classificador.compile(optimizer='adam', loss=tf.keras.losses.BinaryCrossentropy(),
@@ -74,9 +75,9 @@ def predict():
     y_pred_binary = (y_teste > 0.5).astype(int).flatten()
 
     # Salvar no banco de dados
-    paciente_id = 2
-    nome_paciente = "segundo"
-    idade = 19
+    paciente_id = ds.PatientID
+    nome_paciente = "seg"
+    idade = ds.PatientAge
     sexo = "fem"
     diagnostico = "COM COVID" if y_pred_binary == 1 else "SEM COVID"
 
