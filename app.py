@@ -1,22 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 import sqlite3
 import secrets
-from rede import predict
-import threading
 
 
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
 
-def rede():
-    
-    predict()
-
-def iniciar_thread():
-    thread = threading.Thread(target=rede)
-    thread.daemon = True  # Faz a thread ser finalizada quando o servidor for encerrado
-    thread.start()
 
 # Função para conectar ao banco de dados
 
@@ -48,11 +38,6 @@ def login():
 
     return render_template('login.html')
 
-def iniciar_rede():
-    thread = threading.Thread(target=rede)
-    thread.daemon = True  # Faz a thread ser finalizada quando o servidor for encerrado
-    thread.start()
-    return "Predição em andamento!", 202
 
 # Rota para a página principal após login
 def obter_pacientes():
@@ -82,6 +67,6 @@ def detalhe(id):
     return render_template('detalhe.html', paciente=paciente)
 
 
-
 if __name__ == '__main__':
     app.run(debug=True)
+   
