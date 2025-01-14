@@ -23,7 +23,7 @@
                     {% if pacientes %}
                         {% for paciente in pacientes %}
                             <li>
-                                <a href="{{ url_for('detalhe', id=paciente[0]) }}">{{ paciente[2] }}</a> - {{ paciente[1] }} <!-- Exibe o nome -->
+                                <a href="{{ url_for('detalhe', id=paciente[0]) }}">{{ paciente[3] }}</a> - {{ paciente[2] }} <!-- Exibe o nome -->
                             </li>
                         {% endfor %}
                     {% else %}

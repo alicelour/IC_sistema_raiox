@@ -10,11 +10,7 @@
     <div class="container">
         <h1>Detalhes do Paciente</h1>
         <p><strong>Nome:</strong> {{ paciente[1] }}</p>
-        <p><strong>Diagnóstico:</strong> {{ paciente[2] }}</p>
-        <p><strong>Idade:</strong> {{ paciente[3] }}</p>
-        <p><strong>Sexo:</strong> {{ paciente[4] }}</p>
-        <p><strong>Imagem de Raio-X:</strong></p>
-        <img src="{{ url_for('static', filename=paciente[5].replace('\\', '/').replace('static/', '')) }}" alt="Imagem de Raio-X">
+        <p><strong>Diagnóstico:</strong> {{ paciente[3] }}</p>
     </div>
 </body>
 </html>
