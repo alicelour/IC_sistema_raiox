@@ -8,27 +8,49 @@
     <title>dashboard</title>
 </head>
 <body>
+    <div class="botao-atualizar">
+        <form action="{{ url_for('processar_imagens') }}" method="post">
+            <button type="submit">Atualizar Lista</button>
+        </form>
+    </div>
     <div class="logo-container">
         <img  src="{{ url_for('static', filename='img/serra-horizontal-cor.png') }}" alt="logo">
     </div>
+    
+    
+
 
     <div class="container">
             <div class="esquerda-painel">
                 <h1>Prioridade</h1>
-                <p>Imagem com maior prioridade + informações</p>
+                {% for paciente in alta_prioridade %}
+                    <li>
+                        <a href="{{ url_for('detalhe', id=paciente['id']) }}">
+                            {{ paciente['patient_name'] }} - {{ paciente['diagnostico_texto'] }}
+                        </a>
+                    </li>
+                {% endfor %}
             </div>
             <div class="direita-painel">
                 <h2>Lista de prioridades</h2>
+                
+
                 <ul>
-                    {% if pacientes %}
-                        {% for paciente in pacientes %}
-                            <li>
-                                <a href="{{ url_for('detalhe', id=paciente[0]) }}">{{ paciente[3] }}</a> - {{ paciente[2] }} <!-- Exibe o nome -->
-                            </li>
-                        {% endfor %}
+
+                    {% if outros_pacientes %}
+
+                    {% for paciente in outros_pacientes %}
+                        <li>
+                            <a href="{{ url_for('detalhe', id=paciente['id']) }}">
+                                {{ paciente['patient_name'] }} - {{ paciente['diagnostico_texto'] }}
+                            </a>
+                        </li>
+                    {% endfor %}
+
                     {% else %}
                         <p>Sem itens para exibir!</p>
                     {% endif %}
+
                 </ul>
             </div>
         </div>    
