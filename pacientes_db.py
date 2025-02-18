@@ -6,8 +6,11 @@ c = conn.cursor()
 c.execute('''
     CREATE TABLE IF NOT EXISTS pacientes (
         id INTEGER PRIMARY KEY AUTOINCREMENT, 
-        patient_name TEXT NOT NULL,  
-        diagnostico_texto TEXT NOT NULL
+        patient_name TEXT NOT NULL, 
+        idade INTEGER, 
+        sexo TEXT NOT NULL,
+        diagnostico REAL,
+        caminho_imagem TEXT
     )
 ''')
 

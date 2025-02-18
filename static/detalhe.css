@@ -46,3 +46,29 @@ img {
     max-width: 600px;
     text-align: left;
 }
+
+.botao-container {
+    text-align: left; /* Alinha o botão à esquerda */
+    margin: 20px; /* Adiciona um espaçamento ao redor */
+}
+
+.botao-voltar {
+    display: inline-block;
+    background-color: #356937; /* Azul bonito */
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.botao-voltar:hover {
+    background-color: #2e4b2e; /* Azul mais escuro ao passar o mouse */
+}
+
+.botao-voltar:active {
+    background-color: #308333; /* Azul ainda mais escuro ao clicar */
+}

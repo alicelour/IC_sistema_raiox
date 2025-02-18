@@ -9,8 +9,18 @@
 <body>
     <div class="container">
         <h1>Detalhes do Paciente</h1>
-        <p><strong>Nome:</strong> {{ paciente[1] }}</p>
-        <p><strong>Diagnóstico:</strong> {{ paciente[3] }}</p>
+        <p><strong>Nome:</strong> {{ paciente['patient_name'] }}</p>
+        <p><strong>Idade:</strong> {{ paciente['idade'] }}</p>
+        <p><strong>Sexo:</strong> {{ paciente['sexo'] }}</p>
+        <p><strong>Diagnóstico:</strong> {{ paciente['diagnostico'] }}</p>
+
+        <h2>Imagem</h2>
+        <img src="{{ url_for('static', filename=paciente['caminho_imagem']) }}" alt="Imagem do paciente">
+        <br>
+
+        <div class="botao-container">
+            <a href="{{ url_for('dashboard') }}" class="botao-voltar">Voltar</a>
+        </div>
     </div>
 </body>
 </html>

@@ -22,17 +22,17 @@
 
     <div class="container">
             <div class="esquerda-painel">
-                <h1>Prioridade</h1>
+                <h1>Alta Prioridade</h1>
                 {% for paciente in alta_prioridade %}
                     <li>
                         <a href="{{ url_for('detalhe', id=paciente['id']) }}">
-                            {{ paciente['patient_name'] }} - {{ paciente['diagnostico_texto'] }}
+                            {{ paciente['patient_name'] }} - {{ paciente['diagnostico'] }}
                         </a>
                     </li>
                 {% endfor %}
             </div>
             <div class="direita-painel">
-                <h2>Lista de prioridades</h2>
+                <h1>Menos Urgência</h1>
                 
 
                 <ul>
@@ -42,7 +42,7 @@
                     {% for paciente in outros_pacientes %}
                         <li>
                             <a href="{{ url_for('detalhe', id=paciente['id']) }}">
-                                {{ paciente['patient_name'] }} - {{ paciente['diagnostico_texto'] }}
+                                {{ paciente['patient_name'] }} - {{ paciente['diagnostico'] }}
                             </a>
                         </li>
                     {% endfor %}

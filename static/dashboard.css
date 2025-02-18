@@ -108,3 +108,13 @@ a:hover {
     text-decoration: none;
 }
 
+.esquerda-painel h1,
+.direita-painel h1 {
+    position: sticky;
+    top: 0;
+    background-color: #f8f9fa; /* Cor de fundo igual à do painel */
+    padding: 10px;
+    margin: 0;
+    z-index: 10;
+    border-bottom: 2px solid #ccc; /* Linha para destacar */
+}
