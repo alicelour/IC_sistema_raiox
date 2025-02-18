@@ -1,7 +1,7 @@
 import sqlite3
 
 # Criando a base de dados e a tabela de pacientes
-conn = sqlite3.connect('pacientes.db')
+"""conn = sqlite3.connect('pacientes.db')
 c = conn.cursor()
 c.execute('''
     CREATE TABLE IF NOT EXISTS pacientes (
@@ -12,8 +12,20 @@ c.execute('''
         diagnostico REAL,
         caminho_imagem TEXT
     )
+''')"""
+
+#Crie o banco de dados pacientes_removidos.db]
+conn = sqlite3.connect('pacientes.db')
+c = conn.cursor()
+c.execute('''
+    CREATE TABLE IF NOT EXISTS pacientes_removidos (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        patient_name TEXT NOT NULL,
+        idade INTEGER,
+        sexo TEXT,
+        diagnostico REAL,
+        caminho_imagem TEXT
+    )
 ''')
-
-
 conn.commit()
 conn.close()

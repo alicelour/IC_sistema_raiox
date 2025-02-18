@@ -122,6 +122,44 @@ def processar_imagens():
     flash('Imagens processadas e pacientes atualizados!')
     return redirect(url_for('dashboard'))
 
+@app.route('/remover_paciente/<int:id>', methods=['POST'])
+def remover_paciente(id):
+    # Conectar ao banco de dados principal
+    conn_pacientes = get_db_connection_pacientes()
+    cursor_pacientes = conn_pacientes.cursor()
+
+    # Buscar o paciente pelo ID
+    cursor_pacientes.execute("SELECT * FROM pacientes WHERE id = ?", (id,))
+    paciente = cursor_pacientes.fetchone()
+
+    if paciente:
+        # Conectar ao banco de dados de pacientes removidos
+        conn_removidos = get_db_connection_removidos()
+        cursor_removidos = conn_removidos.cursor()
+
+        # Inserir o paciente no banco de dados de removidos
+        cursor_removidos.execute("""
+            INSERT INTO pacientes_removidos (patient_name, idade, sexo, diagnostico, caminho_imagem)
+            VALUES (?, ?, ?, ?, ?)
+        """, (paciente['patient_name'], paciente['idade'], paciente['sexo'], paciente['diagnostico'], paciente['caminho_imagem']))
+        conn_removidos.commit()
+
+        # Remover o paciente do banco de dados principal
+        cursor_pacientes.execute("DELETE FROM pacientes WHERE id = ?", (id,))
+        conn_pacientes.commit()
+
+        # Fechar conexões
+        conn_pacientes.close()
+        conn_removidos.close()
+
+    return redirect(url_for('dashboard'))
+
+# Função para conectar ao banco de dados de pacientes removidos (pacientes_removidos.db)
+def get_db_connection_removidos():
+    conn = sqlite3.connect('pacientes_removidos.db')
+    conn.row_factory = sqlite3.Row
+    return conn
+
 def get_db_connection_pacientes():
     conn = sqlite3.connect('pacientes.db')  # Troquei users.db para pacientes.db
     conn.row_factory = sqlite3.Row
