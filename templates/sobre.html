@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='sobre.css') }}">
+    <title>Sobre</title>
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header class="cabecalho">
+        <!-- Botão Voltar com Ícone -->
+        <div class="voltar-logo-container">
+            <div class="botao-voltar">
+                <a href="{{ url_for('dashboard') }}" class="btn-voltar">&#8592;</a> <!-- Ícone de seta ← -->
+            </div>
+    
+            <!-- Logo ao Lado do Ícone -->
+            <div class="logo-container">
+                <img src="{{ url_for('static', filename='img/serra-horizontal-cor.png') }}" alt="Logo">
+            </div>
+        </div>
+    
+        <!-- Título Centralizado -->
+        <h1 class="titulo-centralizado">Sobre</h1>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="conteudo-sobre">
+        <section class="secao">
+            <h2>Propósito da Aplicação</h2>
+            <p>
+                Este Sistema online foi desenvolvido por estudantes de uma Iniciação Científica para auxiliar na gestão de pacientes que fazem o raio-x toráxico no ambiente hospitalar.
+                O objetivo é priorizar o atendimento com base na gravidade dos casos e fornecer uma interface
+                intuitiva para os profissionais de saúde.
+            </p>
+        </section>
+
+        <section class="secao">
+            <h2>Orientador</h2>
+            <ul>
+                <li> Gustavo Maia </li>
+
+            </ul>
+
+            <h2>Equipe de Desenvolvimento</h2>
+            <ul>
+                <li><strong>Desenvolvedor(a) 1:</strong> Alice Lourenço</li>
+                <li><strong>Desenvolvedor(a) 2:</strong> Arthur</li>
+            </ul>
+        </section>
+
+        <section class="secao">
+            <h2>Tecnologias Utilizadas</h2>
+            <ul>
+                <li><strong>Backend:</strong> Flask (Python)</li>
+                <li><strong>Frontend:</strong> HTML, CSS, JavaScript</li>
+                <li><strong>Banco de Dados:</strong> SQLite3</li>
+                <li><strong>Ferramentas:</strong> Jinja2, Bootstrap</li>
+            </ul>
+        </section>
+
+        <section class="secao">
+            <h2>Contato</h2>
+            <p>
+                Para dúvidas ou sugestões, entre em contato pelo e-mail:
+                <a href="mailto:contato@exemplo.com">contato@exemplo.com</a>
+            </p>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="rodape">
+        <p>&copy; 2025 - Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>

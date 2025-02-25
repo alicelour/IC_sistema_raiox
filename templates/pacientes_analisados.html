@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='pacientes_analisados.css') }}">
+    <title>Pacientes Removidos</title>
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header class="cabecalho">
+        <!-- Botão Voltar com Ícone -->
+        <div class="voltar-logo-container">
+            <div class="botao-voltar">
+                <a href="{{ url_for('dashboard') }}" class="btn-voltar">&#8592;</a> <!-- Ícone de seta ← -->
+            </div>
+
+            <!-- Logo ao Lado do Ícone -->
+            <div class="logo-container">
+                <img src="{{ url_for('static', filename='img/serra-horizontal-cor.png') }}" alt="Logo">
+            </div>
+        </div>
+
+        <!-- Título Centralizado -->
+        <h1 class="titulo-centralizado">Pacientes Removidos</h1>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="conteudo-sobre">
+        <!-- Pacientes Removidos -->
+        <section class="secao">
+
+            <p>Lista de pacientes que foram removidos do sistema.</p>
+            <ul>
+                {% if pacientes_removidos %}
+                    {% for paciente in pacientes_removidos %}
+                        <li>
+                            <a href="{{ url_for('detalhe_removidos', id=paciente['id']) }}">
+                                {{ paciente['patient_name'] }} - Diagnóstico: {{ "%.2f"|format(paciente['diagnostico']) }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    <p>Nenhum paciente removido disponível no momento.</p>
+                {% endif %}
+            </ul>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="rodape">
+        <p>&copy; 2025 - Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>

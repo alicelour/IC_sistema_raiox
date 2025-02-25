@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='detalhe_removidos.css') }}">
+    <title>Detalhes do Paciente Removido</title>
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header class="cabecalho">
+        <!-- Botão Voltar com Ícone -->
+        <div class="voltar-logo-container">
+            <div class="botao-voltar">
+                <a href="{{ url_for('pacientes_analisados') }}" class="btn-voltar">&#8592;</a> <!-- Ícone de seta ← -->
+            </div>
+
+            <!-- Logo ao Lado do Ícone -->
+            <div class="logo-container">
+                <img src="{{ url_for('static', filename='img/serra-horizontal-cor.png') }}" alt="Logo">
+            </div>
+        </div>
+
+        <!-- Título Centralizado -->
+        <h1 class="titulo-centralizado">Detalhes do Paciente</h1>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="conteudo-sobre">
+        <section class="secao">
+            <h2>{{ paciente['patient_name'] }}</h2>
+            <p><strong>ID:</strong> {{ paciente['id'] }}</p>
+            <p><strong>Idade:</strong> {{ paciente['idade'] }}</p>
+            <p><strong>Sexo:</strong> {{ paciente['sexo'] }}</p>
+            <p><strong>Diagnóstico:</strong> {{ "%.2f"|format(paciente['diagnostico']) }}</p>
+            <p><strong>Caminho da Imagem:</strong> {{ paciente['caminho_imagem'] }}</p>
+            <p><strong>Arquivo DICOM:</strong> {{ paciente['filename_dcm'] }}</p>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="rodape">
+        <p>&copy; 2025 - Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>

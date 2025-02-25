@@ -4,25 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='dashboard.css') }}">
-
-    <title>dashboard</title>
+    <title>Dashboard</title>
 </head>
 <body>
+    <!-- Botão Atualizar e Menu Suspenso -->
     <div class="botao-atualizar">
         <form action="{{ url_for('processar_imagens') }}" method="post">
             <button type="submit">Atualizar Lista</button>
         </form>
+
+        <!-- Ícone com Menu Suspenso -->
+        <div class="menu-icone" aria-label="Menu de Opções">
+            <span class="icone">&#9776;</span>
+            <div class="menu-suspenso">
+                <a href="{{ url_for('sobre') }}">Sobre</a>
+                <a href="{{ url_for('pacientes_analisados') }}">Pacientes Analisados</a>
+                <a href="{{ url_for('ajuda') }}">Ajuda</a>
+            </div>
+        </div>
     </div>
+
+    <!-- Logo -->
     <div class="logo-container">
-        <img  src="{{ url_for('static', filename='img/serra-horizontal-cor.png') }}" alt="logo">
+        <img src="{{ url_for('static', filename='img/serra-horizontal-cor.png') }}" alt="Logo">
     </div>
-    
-    
 
-
+    <!-- Painéis Laterais -->
     <div class="container">
-            <div class="esquerda-painel">
-                <h1>Alta Prioridade</h1>
+        <div class="esquerda-painel">
+            <h1>Alta Prioridade</h1>
+            <ul>
+                {% if alta_prioridade %}
                 {% for paciente in alta_prioridade %}
                     <li>
                         <a href="{{ url_for('detalhe', id=paciente['id']) }}">
@@ -30,29 +42,48 @@
                         </a>
                     </li>
                 {% endfor %}
-            </div>
-            <div class="direita-painel">
-                <h1>Menos Urgência</h1>
-                
+                {% else %}
+                    <p>Sem itens para exibir!</p>
+                {% endif %}
+            </ul>
+        </div>
 
-                <ul>
+        <div class="direita-painel">
+            <h1>Menos Urgência</h1>
+            <ul>
+                {% if outros_pacientes %}
+                {% for paciente in outros_pacientes %}
+                    <li>
+                        <a href="{{ url_for('detalhe', id=paciente['id']) }}">
+                            {{ paciente['patient_name'] }} - {{ paciente['diagnostico'] }}
+                        </a>
+                    </li>
+                {% endfor %}
+                {% else %}
+                    <p>Sem itens para exibir!</p>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
 
-                    {% if outros_pacientes %}
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const icone = document.querySelector('.menu-icone');
+            if (icone) {
+                icone.addEventListener('click', function () {
+                    this.classList.toggle('ativo');
+                });
+            }
 
-                    {% for paciente in outros_pacientes %}
-                        <li>
-                            <a href="{{ url_for('detalhe', id=paciente['id']) }}">
-                                {{ paciente['patient_name'] }} - {{ paciente['diagnostico'] }}
-                            </a>
-                        </li>
-                    {% endfor %}
-
-                    {% else %}
-                        <p>Sem itens para exibir!</p>
-                    {% endif %}
-
-                </ul>
-            </div>
-        </div>    
+            // Fecha o menu ao clicar fora
+            document.addEventListener('click', function (event) {
+                const icone = document.querySelector('.menu-icone');
+                if (!icone.contains(event.target)) {
+                    icone.classList.remove('ativo');
+                }
+            });
+        });
+    </script>
 </body>
 </html>

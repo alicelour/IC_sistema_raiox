@@ -1,0 +1,183 @@
+/* Reset e Normalização */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilo Global */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    height: 100vh;
+}
+
+/* Cabeçalho */
+.cabecalho {
+    position: relative; /* Permite posicionar o título absolutamente */
+    width: 100%;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-bottom: 2px solid #ccc;
+    display: flex;
+    align-items: center; /* Alinha verticalmente */
+    justify-content: space-between; /* Espaço entre os elementos */
+}
+
+/* Contêiner do Botão Voltar e Logo */
+.voltar-logo-container {
+    display: flex;
+    align-items: center; /* Alinha verticalmente */
+    gap: 15px; /* Espaçamento entre o ícone e o logo */
+}
+
+/* Botão Voltar */
+.botao-voltar {
+    display: flex;
+    align-items: center;
+}
+
+.btn-voltar {
+    font-size: 24px;
+    color: #356937;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.btn-voltar:hover {
+    color: #47a51b;
+    transform: translateX(-5px);
+}
+
+/* Logo */
+.logo-container img {
+    max-width: 200px;
+    max-height: 200px;
+    width: auto;
+    height: auto;
+    opacity: 0; /* Inicialmente invisível */
+    animation: fadeInUp 1s ease forwards; /* Animação de entrada */
+    transition: transform 0.3s ease;
+}
+
+.logo-container img:hover {
+    transform: scale(1.1);
+}
+
+/* Animação de entrada do logo */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Título Centralizado */
+.titulo-centralizado {
+    font-size: 24px;
+    color: #356937;
+    font-weight: bold;
+    margin: 0;
+    position: absolute; /* Posiciona o título no centro do cabeçalho */
+    left: 50%; /* Centraliza horizontalmente */
+    top: 50%; /* Centraliza verticalmente */
+    transform: translate(-50%, -50%); /* Ajusta o centro exato */
+    z-index: 1; /* Garante que o título fique acima de outros elementos */
+}
+
+/* Conteúdo Principal */
+.conteudo-sobre {
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.secao {
+    margin-bottom: 30px;
+}
+
+.secao h2 {
+    font-size: 20px;
+    color: #356937;
+    margin-bottom: 10px;
+}
+
+.secao p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #555;
+}
+
+.secao ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.secao li {
+    background-color: #f9f9f9;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.secao li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.secao a {
+    color: #47a51b;
+    text-decoration: none;
+    font-weight: bold;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.secao a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #47a51b;
+    transition: width 0.3s ease;
+}
+
+.secao a:hover {
+    color: #356937;
+}
+
+.secao a:hover::after {
+    width: 100%;
+}
+
+/* Rodapé */
+.rodape {
+    text-align: center;
+    padding: 10px;
+    background-color: white;
+    box-shadow: 0px -4px 8px rgba(0, 0, 0, 0.1);
+    border-top: 2px solid #ccc;
+    width: 100%;
+    font-size: 14px;
+    color: #777;
+}

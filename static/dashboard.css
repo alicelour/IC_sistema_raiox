@@ -1,22 +1,30 @@
+/* Reset e Normalização */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
+    background-color: #f8f9fa;
+    color: #333;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
     overflow-y: auto;
     height: 100vh;
-    background-color: #f8f9fa; 
-    
 }
 
+/* Botão Atualizar e Menu Suspenso */
 .botao-atualizar {
     position: absolute;
     top: 20px;
     right: 20px;
-    z-index: 2;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 .botao-atualizar button {
@@ -27,66 +35,157 @@ body {
     border-radius: 5px;
     cursor: pointer;
     font-weight: bold;
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .botao-atualizar button:hover {
     background-color: #47a51b;
+    transform: scale(1.05); /* Ampliação sutil */
 }
 
+.menu-icone {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
 
-.logo-container{
-    position: absolute; /* Posiciona a div em relação ao cabeçalho */
-    top: 0; 
-    left: 0; 
-    width: 100%; /* largura do cabeçalho */
-    height: 15%;
-    background-color: #f8f9fa; 
+.icone {
+    font-size: 24px;
+    color: #356937;
+    transition: color 0.3s ease;
+}
+
+.icone:hover {
+    color: #47a51b;
+}
+
+.menu-suspenso {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 1000;
+    opacity: 0; /* Inicialmente invisível */
+    transform: translateY(-10px); /* Posição inicial acima */
+    animation: fadeInDown 0.3s ease forwards; /* Animação de entrada */
+}
+
+/* Animação de entrada do menu suspenso */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.menu-suspenso a {
+    display: block;
+    padding: 12px 20px;
+    text-decoration: none;
+    color: #356937;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.menu-suspenso a:hover {
+    background-color: #f0f0f0;
+    transform: translateX(5px);
+}
+
+.menu-icone.ativo .menu-suspenso {
+    display: block;
+}
+
+/* Animação para o menu suspenso */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Logo */
+.logo-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
     z-index: 1;
 }
 
-img {
-    position: absolute; /* Posiciona a imagem em relação ao contêiner mais próximo */
-    top: 0; 
-    left: 0; 
-    max-width: 200px; /* largura máxima */
-    max-height: 200px; /* altura máxima */
-    width: auto; /* proporção da imagem */
-    height: auto; /* proporção da imagem */
+
+/* Logo */
+
+.logo-container img {
+    max-width: 200px;
+    max-height: 200px;
+    width: auto;
+    height: auto;
+    opacity: 0; /* Inicialmente invisível */
+    animation: fadeInUp 1s ease forwards; /* Animação de entrada */
+    transition: transform 0.3s ease;
 }
 
+.logo-container img:hover {
+    transform: scale(1.1);
+}
+
+/* Animação de entrada do logo */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Painéis Laterais */
 .container {
     display: flex;
     width: 100%;
-    height: 100vh; /* Altura total */
-    margin-top: 10%;
- 
+    height: calc(100vh - 100px); /* Ajuste para margem superior */
+    margin-top: 100px;
 }
 
-.esquerda-painel, .direita-painel {
-    flex: 1; /* 50% da tela */
+.esquerda-painel,
+.direita-painel {
+    flex: 1;
     overflow-y: auto;
-
-    padding: 20px;
-    box-sizing: border-box;
+    padding: 0px;
+    background-color: #f8f9fa;
 }
 
 .esquerda-painel {
-    background-color: #f8f9fa; 
-    
-    border-right: 2px solid #ccc; 
+    border-right: 2px solid #ccc;
 }
 
-.esquerda-painel h1{
-    color: red;
-}
-
-.direita-painel {
-    background-color: #f8f9fa; 
+.esquerda-painel h1,
+.direita-painel h1 {
+    position: sticky;
+    top: 0;
+    background-color: #f8f9fa;
+    padding: 10px;
+    margin: 0;
+    z-index: 10;
+    border-bottom: 2px solid #ccc;
 }
 
 ul {
-    list-style-type: none; /*  marcadores da lista */
-    padding: 0;
+    list-style-type: none;
 }
 
 li {
@@ -95,26 +194,60 @@ li {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+li:hover {
+    transform: translateY(-5px); /* Elevação sutil */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra mais pronunciada */
 }
 
 a {
     text-decoration: none;
     color: #356937;
     font-weight: bold;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #356937;
+    transition: width 0.3s ease;
 }
 
 a:hover {
     color: #47a51b;
-    text-decoration: none;
 }
 
-.esquerda-painel h1,
-.direita-painel h1 {
-    position: sticky;
-    top: 0;
-    background-color: #f8f9fa; /* Cor de fundo igual à do painel */
-    padding: 10px;
-    margin: 0;
-    z-index: 10;
-    border-bottom: 2px solid #ccc; /* Linha para destacar */
+a:hover::after {
+    width: 100%; /* Sublinhado desliza para a direita */
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Painéis empilhados verticalmente */
+        height: auto;
+    }
+
+    .esquerda-painel,
+    .direita-painel {
+        border-right: none; /* Remove borda direita */
+        padding: 10px;
+    }
+
+    .logo-container img {
+        max-width: 150px; /* Reduz o tamanho do logo */
+        max-height: 150px;
+    }
+
+    .botao-atualizar {
+        flex-direction: column; /* Botão e ícone empilhados */
+        gap: 10px;
+    }
 }

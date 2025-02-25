@@ -7,6 +7,7 @@ from predict import ImagePredictor
 import pydicom
 import imageio
 from skimage import exposure
+import shutil
 
 
 app = Flask(__name__)
@@ -134,15 +135,30 @@ def remover_paciente(id):
 
     if paciente:
         # Conectar ao banco de dados de pacientes removidos
-        conn_removidos = get_db_connection_removidos()
+        conn_removidos = get_db_connection_pacientes()
         cursor_removidos = conn_removidos.cursor()
 
         # Inserir o paciente no banco de dados de removidos
         cursor_removidos.execute("""
-            INSERT INTO pacientes_removidos (patient_name, idade, sexo, diagnostico, caminho_imagem)
-            VALUES (?, ?, ?, ?, ?)
-        """, (paciente['patient_name'], paciente['idade'], paciente['sexo'], paciente['diagnostico'], paciente['caminho_imagem']))
+            INSERT INTO pacientes_removidos (patient_name, idade, sexo, diagnostico, caminho_imagem, filename_cam)
+            VALUES (?, ?, ?, ?, ?, ?)
+        """, (paciente['patient_name'], paciente['idade'], paciente['sexo'], paciente['diagnostico'], paciente['caminho_imagem'], paciente['filename_dcm']))
         conn_removidos.commit()
+
+        # Remover o arquivo DICOM da pasta "dicom"
+        pasta_dicom = r"C:\Users\alice\teste_html\dicom"  # Pasta onde estão os arquivos DICOM
+        pasta_removidos = r"C:\Users\alice\teste_html\dcm_removidos"
+        os.makedirs(pasta_removidos, exist_ok=True) 
+        
+         # Mover o arquivo DICOM para a pasta de removidos
+        dicom_path = os.path.join(pasta_dicom, paciente['filename_dcm'])
+        novo_caminho = os.path.join(pasta_removidos, paciente['filename_dcm'])
+
+        if os.path.exists(dicom_path):  # Verifica se o arquivo existe
+            shutil.move(dicom_path, novo_caminho)  # Move o arquivo
+            print(f"Arquivo DICOM movido para: {novo_caminho}")
+        else:
+            print(f"Arquivo DICOM não encontrado: {dicom_path}")
 
         # Remover o paciente do banco de dados principal
         cursor_pacientes.execute("DELETE FROM pacientes WHERE id = ?", (id,))
@@ -154,11 +170,7 @@ def remover_paciente(id):
 
     return redirect(url_for('dashboard'))
 
-# Função para conectar ao banco de dados de pacientes removidos (pacientes_removidos.db)
-def get_db_connection_removidos():
-    conn = sqlite3.connect('pacientes_removidos.db')
-    conn.row_factory = sqlite3.Row
-    return conn
+
 
 def get_db_connection_pacientes():
     conn = sqlite3.connect('pacientes.db')  # Troquei users.db para pacientes.db
@@ -208,6 +220,51 @@ def detalhe(id):
 
     # Renderiza o template com os dados do paciente
     return render_template('detalhe.html', paciente=paciente)
+
+@app.route('/sobre')
+def sobre():
+    return render_template('sobre.html')
+@app.route('/ajuda')
+def ajuda():
+    return render_template('ajuda.html')
+
+@app.route('/pacientes_analisados')
+def pacientes_analisados():
+    conn = get_db_connection_pacientes()
+    cursor = conn.cursor()
+
+    # Buscar pacientes analisados (ativos)
+    pacientes_analisados = cursor.execute("SELECT * FROM pacientes").fetchall()
+
+    # Buscar pacientes removidos
+    pacientes_removidos = cursor.execute("SELECT * FROM pacientes_removidos").fetchall()
+
+    conn.close()
+
+    # Renderiza o template com os dados dos pacientes analisados e removidos
+    return render_template('pacientes_analisados.html', 
+                           pacientes_analisados=pacientes_analisados, 
+                           pacientes_removidos=pacientes_removidos)
+
+
+@app.route('/detalhe_removidos/<int:id>')
+def detalhe_removidos(id):
+    conn = get_db_connection_pacientes()
+    cursor = conn.cursor()
+
+    # Buscar o paciente removido pelo ID
+    cursor.execute("SELECT * FROM pacientes_removidos WHERE id = ?", (id,))
+    paciente = cursor.fetchone()
+
+    conn.close()
+
+    # Se o paciente não existir, redireciona para a lista de pacientes removidos
+    if not paciente:
+        flash("Paciente removido não encontrado!", "error")
+        return redirect(url_for('pacientes_analisados'))
+
+    # Renderiza o template com os dados do paciente removido
+    return render_template('detalhe_removidos.html', paciente=paciente)
     
 
 if __name__ == '__main__':

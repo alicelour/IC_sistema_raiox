@@ -25,6 +25,7 @@ c.execute('''
         sexo TEXT,
         diagnostico REAL,
         caminho_imagem TEXT
+        filename_cam TEXT NOT NULL
     )
 ''')
 conn.commit()

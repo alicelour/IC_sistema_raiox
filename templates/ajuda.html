@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='ajuda.css') }}">
+    <title>Ajuda</title>
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header class="cabecalho">
+        <!-- Botão Voltar com Ícone -->
+        <div class="voltar-logo-container">
+            <div class="botao-voltar">
+                <a href="{{ url_for('dashboard') }}" class="btn-voltar">&#8592;</a> <!-- Ícone de seta ← -->
+            </div>
+
+            <!-- Logo ao Lado do Ícone -->
+            <div class="logo-container">
+                <img src="{{ url_for('static', filename='img/serra-horizontal-cor.png') }}" alt="Logo">
+            </div>
+        </div>
+
+        <!-- Título Centralizado -->
+        <h1 class="titulo-centralizado">Ajuda</h1>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="conteudo-sobre">
+        <section class="secao">
+            <h2>Como Usar o Sistema</h2>
+            <p>
+                Este sistema foi projetado para auxiliar na gestão de pacientes que realizam raio-x torácico.
+                Abaixo estão algumas instruções básicas para usar a plataforma:
+            </p>
+            <ul>
+                <li><strong>Atualizar Lista:</strong> Clique no botão "Atualizar Lista" para carregar novos dados.</li>
+                <li><strong>Pacientes Prioritários:</strong> Verifique a lista de alta prioridade no painel esquerdo.</li>
+                <li><strong>Pacientes de Menor Urgência:</strong> Consulte o painel direito para casos menos críticos.</li>
+            </ul>
+        </section>
+
+        <section class="secao">
+            <h2>Dúvidas Frequentes</h2>
+            <ul>
+                <li><strong>Como faço para adicionar novos pacientes?</strong> Atualmente, os raio-x que entram na pasta "dicom", 
+                    aparecem na página assim que o botão "atualizar lista" é pressionado.</li>
+                <li><strong>Onde encontro os resultados analisados?</strong> Acesse a seção "Pacientes Analisados".</li>
+                <li><strong>Como entrar em contato?</strong> Envie um e-mail para <a href="mailto:contato@exemplo.com">contato@exemplo.com</a>.</li>
+            </ul>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="rodape">
+        <p>&copy; 2025 - Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>
